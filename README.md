@@ -1,70 +1,81 @@
-# Getting Started with Create React App
+# 원티드 프리온보딩 사전과제
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+#### 구현 과제
 
-In the project directory, you can run:
+1. Toggle
+2. Modal
+3. Tab
+4. Tag
+5. AutoComplete
+6. ClickToEdit
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+#### 달성 목록
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Toggle
 
-### `npm test`
+   > useState를 사용하여 구현했습니다.
+   >
+   > 토글은 상태를 공유하는 다른 컴포넌트와 종종 같이 사용됩니다.
+   > enabled와 setEnabled를 부모로부터 상속받습니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   ```jsx
+   const [toggleEnable, setToggleEnable] = useState(false);
 
-### `npm run build`
+   <Toggle enabled={toggleEnable} setEnabled={setToggleEnable} />;
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Modal
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   > useState를 사용하여 구현했습니다.
+   >
+   > 모달은 버튼 또는 모달을 호출하는 다른 요소와 함께 쓰입니다.
+   > open 및 setOpen를 부모로부터 상속받습니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```jsx
+   const [modalOpen, setModalOpen] = useState(false);
 
-### `npm run eject`
+   export default function ModalWithButton() {
+     return (
+       <>
+         <button
+           onClick={() => setModalOpen(true)}
+           type="button"
+           className="inline-flex items-center px-5 py-2 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+         >
+           모달 열기
+         </button>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+         <Modal open={modalOpen} setOpen={setModalOpen} />
+       </>
+     );
+   }
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Tab
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   > useState를 사용하여 구현했습니다.
+   >
+   > 탭은 현재탭에 따라 다른 내용의 컴포넌트를 렌더링 할 때 종종 사용됩니다.
+   > tabs, currentTab, setCurrentTab를 부모로 부터 상속받습니다.
+   >
+   > tabs는 name으로 구성된 객체입니다. currentTab은 tabs중 하나입니다.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```jsx
+   const tabs = [
+     { name: "첫번째 탭 1" },
+     { name: "두번째 탭 2" },
+     { name: "세번째 탭 3" },
+     { name: "네번째 탭 4" },
+   ];
+   const [currentTab, setCurrentTab] = useState(tabs[0]);
 
-## Learn More
+   <Tab tabs={tabs} currentTab={currentTab} setCurrentTab={setCurrentTab} />;
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   >
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
