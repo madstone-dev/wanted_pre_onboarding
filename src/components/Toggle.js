@@ -1,6 +1,16 @@
 import { classNames } from "../utils/cssUtils";
 
-export default function Toggle({ enabled, setEnabled }) {
+export default function Toggle({ enabled, setEnabled, srOnly = "토글" }) {
+  if (typeof enabled !== "boolean") {
+    console.warn("enabled을 전달하세요. enabled은 boolean 타입입니다.");
+  }
+
+  if (typeof setEnabled !== "function") {
+    console.warn(
+      "setEnabled을 전달하세요. setEnabled은 React.Dispatch<SetStateAction<boolean>> 타입입니다."
+    );
+  }
+
   const onChangeSwitch = () => {
     setEnabled(!enabled);
   };
@@ -13,7 +23,7 @@ export default function Toggle({ enabled, setEnabled }) {
         "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
       )}
     >
-      <span className="sr-only">토글</span>
+      <span className="sr-only">{srOnly}</span>
       <span
         className={classNames(
           enabled ? "translate-x-5" : "translate-x-0",

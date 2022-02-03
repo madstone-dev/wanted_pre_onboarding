@@ -1,13 +1,35 @@
-export default function Modal({ open, setOpen }) {
-  if (typeof open !== "boolean") {
+import { useEffect, useRef } from "react";
+
+export default function Modal({ open, setOpen, children }) {
+  const closeBtn = useRef();
+
+  if (open === undefined) {
     throw new Error("open을 전달하세요. open은 boolean 타입입니다.");
   }
 
+  if (typeof open !== "boolean") {
+    console.warn("open은 boolean 타입입니다.");
+  }
+
   if (typeof setOpen !== "function") {
-    throw new Error(
-      "setOpen을 전달하세요. setOpen은 useState의 Dispatch 이벤트입니다."
+    console.warn(
+      "setOpen을 전달하세요. setOpen은 React.Dispatch<SetStateAction<boolean>> 타입입니다."
     );
   }
+
+  useEffect(() => {
+    if (open && closeBtn.current) {
+      closeBtn.current.focus();
+    }
+    if (open) {
+      document.documentElement.classList.add("overflow-hidden", "pr-[15px]");
+    } else {
+      document.documentElement.classList.remove("overflow-hidden", "pr-[15px]");
+    }
+    return () => {
+      document.documentElement.classList.remove("overflow-hidden", "pr-[15px]");
+    };
+  }, [open]);
 
   return (
     open && (
@@ -22,11 +44,12 @@ export default function Modal({ open, setOpen }) {
           <div className="inline-block bg-white rounded-lg p-8 overflow-hidden shadow-xl relative max-w-lg w-full">
             <div className="block">
               <button
+                ref={closeBtn}
                 type="button"
                 className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded-md"
                 onClick={() => setOpen(false)}
               >
-                <span className="sr-only">모달 닫기</span>
+                <span className="sr-only">닫기</span>
                 <span className="text-gray-400 hover:text-gray-500">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +68,7 @@ export default function Modal({ open, setOpen }) {
                 </span>
               </button>
             </div>
-            <div className="py-8">Hello Modal !</div>
+            <div>{children}</div>
           </div>
         </div>
       </div>
