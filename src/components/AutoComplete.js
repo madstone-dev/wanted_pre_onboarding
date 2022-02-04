@@ -21,7 +21,7 @@ export default function AutoComplete({
       (item) => item.toLowerCase().indexOf(keyword.toLowerCase()) >= 0
     );
     setList(newList);
-  }, [keyword]);
+  }, [keyword, data]);
 
   return (
     <div className="relative">
