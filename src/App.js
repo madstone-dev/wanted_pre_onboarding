@@ -67,19 +67,23 @@ function App() {
     "Frederic Koss",
     "Herbert Koepp",
   ];
+  const [keyword, setKeyword] = useState("");
+  const handleSubmit = () => {
+    alert(`${keyword} 검색!`);
+  };
 
   const [name, setName] = useState("김해커");
   const [age, setAge] = useState("20");
 
   return (
-    <div className="max-w-3xl mx-auto px-8 py-6">
-      <h1 className="py-8 font-bold text-3xl">
+    <div className="max-w-3xl px-8 py-6 mx-auto">
+      <h1 className="py-8 text-3xl font-bold">
         원디트 프리온보딩 프론트엔드 코스
       </h1>
       <hr />
       <ul className="py-8 space-y-16">
         <li>
-          <h3 className="py-4 font-semibold text-xl">1. 토글</h3>
+          <h3 className="py-4 text-xl font-semibold">1. 토글</h3>
           <div className="py-2">
             <Toggle enabled={toggleEnable} setEnabled={setToggleEnable} />
           </div>
@@ -88,22 +92,29 @@ function App() {
           </div>
         </li>
         <li>
-          <h3 className="py-4 font-semibold text-xl">2. 모달</h3>
+          <h3 className="py-4 text-xl font-semibold">2. 모달</h3>
           <div className="py-2">
             <button
               onClick={() => setModalOpen(true)}
               type="button"
-              className="inline-flex items-center px-5 py-2 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="inline-flex items-center px-5 py-2 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-full shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               모달 열기
             </button>
             <Modal open={modalOpen} setOpen={setModalOpen}>
               <div className="py-8">Hello Modal !</div>
+              <div className="pb-8">
+                <input
+                  type="text"
+                  placeholder="모달 트랩이 있습니다."
+                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
             </Modal>
           </div>
         </li>
         <li>
-          <h3 className="py-4 font-semibold text-xl">3. 탭</h3>
+          <h3 className="py-4 text-xl font-semibold">3. 탭</h3>
           <div className="py-2">
             <Tab
               tabs={tabs}
@@ -111,35 +122,41 @@ function App() {
               setCurrentTab={setCurrentTab}
             />
           </div>
-          <div className="py-16 border rounded-md my-4 text-center">
-            {currentTab.name} 콘텐츠
+          <div className="py-16 my-4 text-center border rounded-md">
+            {currentTab} 콘텐츠
           </div>
         </li>
         <li>
-          <h3 className="py-4 font-semibold text-xl">4. 태그</h3>
+          <h3 className="py-4 text-xl font-semibold">4. 태그</h3>
           <div className="py-2">
             <Tag tags={tags} setTags={setTags} />
           </div>
         </li>
         <li>
-          <h3 className="py-4 font-semibold text-xl">5. 자동완성</h3>
+          <h3 className="py-4 text-xl font-semibold">5. 자동완성</h3>
           <div className="py-2">
-            <AutoComplete data={data} placeholder={"사용자 이름 검색"} />
+            <AutoComplete
+              data={data}
+              keyword={keyword}
+              setKeyword={setKeyword}
+              placeholder={"사용자 이름 검색"}
+              handleSubmit={handleSubmit}
+            />
           </div>
         </li>
         <li>
-          <h3 className="py-4 font-semibold text-xl">6. 클릭하여 수정</h3>
+          <h3 className="py-4 text-xl font-semibold">6. 클릭하여 수정</h3>
           <div className="py-2 space-y-4">
-            <div className="flex space-x-3 items-center">
+            <div className="flex items-center space-x-3">
               <span>이름</span>
               <ClickToEdit text={name} setText={setName} placeholder={"이름"} />
             </div>
-            <div className="flex space-x-3 items-center">
+            <div className="flex items-center space-x-3">
               <span>나이</span>
               <ClickToEdit text={age} setText={setAge} placeholder={"나이"} />
             </div>
           </div>
-          <div className="flex space-x-2 mt-6">
+          <div className="flex mt-6 space-x-2">
             <span>이름</span>
             <span className="font-bold">{name}</span>
             <span>나이</span>

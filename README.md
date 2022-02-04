@@ -23,6 +23,10 @@
 
 > 토글은 상태를 공유하는 다른 컴포넌트와 종종 같이 사용됩니다.
 > enabled, setEnabled, srOnly 부모로부터 상속받습니다.
+>
+> --
+>
+> 토글은 명시적 label이 없기 때문에 srOnly를 활용했습니다.
 
 - 사용예시
 
@@ -45,9 +49,16 @@ const [toggleEnable, setToggleEnable] = useState(false);
 
 ##### 2. Modal
 
-> 모달은 버튼 또는 모달을 호출하는 다른 요소와 함께 쓰입니다.
+> 모달은 버튼 또는 모달을 호출하는 요소와 함께 쓰입니다.
 > 모달 내 컨텐츠는 children으로 전달합니다.
+>
 > open, setOpen, children을 부모로부터 상속받습니다.
+>
+> --
+>
+> 모달이 열린 후 닫기 버튼으로 포커스가 이동됩니다.
+> 모달이 닫힐시 처음 모달을 호출 했던 요소로 포커스가 되돌아갑니다.
+> Tab을 사용하여 포커스 이동시 모달내 포커스를 잃지 않기 위해 다이얼로그의 최상단과 최하단에 포커스트랩을 만들어두었습니다.
 
 - 사용예시
 
@@ -91,6 +102,8 @@ export default function ModalWithButton() {
 >
 > currentTab은 tabs중 하나입니다.
 >
+> --
+>
 > 라우팅에 대한 내용이 없었으므로, string[] 타입으로 구현하였습니다.
 
 - 사용예시
@@ -118,7 +131,10 @@ const [currentTab, setCurrentTab] = useState(tabs[0]);
 > 콘텐츠의 작성 또는 수정 시 태그의 현재상태를 입력 받기도 합니다.
 > tags, setTags를 부모로부터 상속받습니다.
 >
-> 각 태그는 timestamp로 구분합니다.
+> --
+>
+> 엔터를 눌러 태그를 작성하는 컴포넌트이기에 form 요소와 input 요소를 활용했습니다.
+> 각 태그는 배열의 인덱스로 구분합니다.
 
 - 사용예시
 
@@ -140,10 +156,17 @@ const [tags, setTags] = useState([]);
 
 ##### 5. AutoComplete
 
-> data, placeholder, absolute를 부모로부터 상속받습니다.
+> 자동완성은 검색과 같은 이벤트에 자주 활용됩니다.
+> data, keyword, setKeyword, placeholder, handleSubmit, absolute 를 부모로부터 상속받습니다.
 >
 > data는 자동완성에 사용할 목록입니다.
 > absolute는 리스트를 position:absolute 시킵니다.
+>
+> --
+>
+> form, input 요소를 활용하여 구현하였으며, submit시 전달받은 이벤트가 있다면 실행합니다.
+> 클릭 또는 Tab으로 포커스가 AutoComplete 요소 밖으로 벗어나면 자동완성 리스트를 닫습니다.
+> 자동완성 리스트는 Tab으로 접근 가능합니다.
 
 - 사용예시
 
@@ -153,17 +176,30 @@ const data = [
     "Duane Kunze",
     ...
 ];
+const [keyword, setKeyword] = useState("");
+const handleSubmit = () => {
+  alert(`${keyword} 검색!`);
+};
 
-<AutoComplete data={data} placeholder={"사용자 이름 검색"} />;
+<AutoComplete
+  data={data}
+  keyword={keyword}
+  setKeyword={setKeyword}
+  placeholder={"사용자 이름 검색"}
+  handleSubmit={handleSubmit}
+/>
 ```
 
 - 속성
 
-| 속성        | 필수     | 기본값 | 타입     |
-| ----------- | -------- | ------ | -------- |
-| data        | optional | []     | string[] |
-| placeholder | optional | ""     | string   |
-| absolute    | optional | true   | boolean  |
+| 속성         | 필수     | 기본값    | 타입                                                   |
+| ------------ | -------- | --------- | ------------------------------------------------------ |
+| data         | optional | []        | string[]                                               |
+| keyword      | required | undefined | string[]                                               |
+| setKeyword   | required | undefined | React.Dispatch&lt;SetStateAction&lt;**string**&gt;&gt; |
+| placeholder  | optional | ""        | string                                                 |
+| absolute     | optional | true      | boolean                                                |
+| handleSubmit | optional | undefined | function                                               |
 
 <br/>
 <br/>

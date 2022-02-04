@@ -27,7 +27,7 @@ export default function Tag({ tags, setTags }) {
   };
 
   const removeTag = (index) => {
-    const newTags = tags.filter((tag, _index) => index !== _index);
+    const newTags = tags.filter((_, _index) => index !== _index);
     setTags(newTags);
   };
 
