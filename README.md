@@ -15,6 +15,8 @@
 
 #### 달성 목록
 
+<u>[데모](https://madstone-dev.github.io/wanted_pre_onboarding)</u>
+
 <br/>
 
 ##### 1. Toggle
