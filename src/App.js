@@ -106,7 +106,7 @@ function App() {
               <div className="pb-8">
                 <input
                   type="text"
-                  placeholder="모달 트랩이 있습니다."
+                  placeholder="포커스 트랩이 있습니다."
                   className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
               </div>

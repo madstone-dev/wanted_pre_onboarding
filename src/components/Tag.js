@@ -33,24 +33,25 @@ export default function Tag({ tags, setTags }) {
 
   return (
     <form
-      className="shadow-sm flex w-full border-gray-300 rounded-md border overflow-hidden focus:border-indigo-300 items-center flex-wrap"
+      className="flex flex-wrap items-center w-full overflow-hidden border border-gray-300 rounded-md shadow-sm focus:border-indigo-300"
       onSubmit={onSubmit}
     >
       <ul className="flex flex-wrap space-x-2 space-y-2">
         {tags.map((tag, index) => (
           <li key={index} className="my-2 ml-2">
-            <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800 space-x-2">
+            <div className="inline-flex items-center px-3 py-1 space-x-2 text-sm font-medium text-indigo-800 bg-indigo-100 rounded-full">
               <span>{tag}</span>
               <button
                 type="button"
-                className="bg-white rounded-full p-1 text-indigo-600 hover:text-indigo-700 hover:bg-gray-50 active:bg-gray-100"
+                className="p-1 text-indigo-600 bg-white rounded-full hover:text-indigo-700 hover:bg-gray-50 active:bg-gray-100"
                 onClick={() => {
                   removeTag(index);
                 }}
               >
+                <span className="sr-only">태그 제거 {tag}</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-2 w-2"
+                  className="w-2 h-2"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -70,7 +71,7 @@ export default function Tag({ tags, setTags }) {
       <input
         type="text"
         placeholder="엔터를 눌러 태그를 작성하세요."
-        className="flex-1 border-none focus:border-none focus:outline-none focus:ring-0 py-3 px-4"
+        className="flex-1 px-4 py-3 border-none focus:border-none focus:outline-none focus:ring-0"
         value={tag}
         onChange={onChange}
       />
