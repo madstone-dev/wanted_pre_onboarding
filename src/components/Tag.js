@@ -33,17 +33,17 @@ export default function Tag({ tags, setTags }) {
 
   return (
     <form
-      className="flex flex-wrap items-center w-full overflow-hidden border border-gray-300 rounded-md shadow-sm focus:border-indigo-300"
+      className="flex flex-wrap items-center w-full pr-2 overflow-hidden border border-gray-300 rounded-md shadow-sm focus:border-indigo-300"
       onSubmit={onSubmit}
     >
       <ul className="flex flex-wrap space-x-2 space-y-2">
         {tags.map((tag, index) => (
           <li key={index} className="my-2 ml-2">
-            <div className="inline-flex items-center px-3 py-1 space-x-2 text-sm font-medium text-indigo-800 bg-indigo-100 rounded-full">
-              <span>{tag}</span>
+            <div className="inline-flex items-center max-w-full px-3 py-1 space-x-2 text-sm font-medium text-indigo-800 bg-indigo-100 rounded-full">
+              <span className="break-all">{tag}</span>
               <button
                 type="button"
-                className="p-1 text-indigo-600 bg-white rounded-full hover:text-indigo-700 hover:bg-gray-50 active:bg-gray-100"
+                className="p-1 text-indigo-600 bg-white rounded-full shrink-0 hover:text-indigo-700 hover:bg-gray-50 active:bg-gray-100"
                 onClick={() => {
                   removeTag(index);
                 }}
