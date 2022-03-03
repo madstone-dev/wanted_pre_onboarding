@@ -100,6 +100,9 @@ export default function AutoComplete({
 
   const onInputkeyDown = (event) => {
     if (event.key === ARROW_DOWN) {
+      if (event.keyCode === 229) {
+        return;
+      }
       setOpen(true);
       const first = liRefs.current[0];
       if (first) {
